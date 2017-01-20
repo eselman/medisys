@@ -14,6 +14,6 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
 			HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException {
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-				"Unauthorized: Authentication token was either missing or invalid.");
+				"Unauthorized: Authentication token was either missing or invalid." + authException.getMessage());
 	}
 }

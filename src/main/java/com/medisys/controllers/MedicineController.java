@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import com.medisys.entities.Laboratory;
 import com.medisys.entities.Medicine;
+import com.medisys.entities.Presentation;
 import com.medisys.services.MedicineService;
 
 @Path("/medicines")
@@ -45,6 +46,42 @@ public class MedicineController {
 		return r;
 	}
 	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/laboratory")
+	public Response saveLaboratory (Laboratory laboratory) {
+		Response r = null;
+		
+		try {
+			laboratory = medicineService.saveLaboratory(laboratory);
+			r = Response.status(Status.OK).entity(laboratory).build();
+		} catch (Exception e) {
+			r = Response.status(Status.INTERNAL_SERVER_ERROR).entity("Se produjo un error al guardar el nuevo laboratorio")
+					.build();
+		}
+		
+		return r;
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/laboratory")
+	public Response updateLaboratory (Laboratory laboratory) {
+		Response r = null;
+		
+		try {
+			laboratory = medicineService.saveLaboratory(laboratory);
+			r = Response.status(Status.OK).entity(laboratory).build();
+		} catch (Exception e) {
+			r = Response.status(Status.INTERNAL_SERVER_ERROR).entity("Se produjo un error al actualizar el laboratorio: " + laboratory.getId())
+					.build();
+		}
+		
+		return r;
+	}
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{laboratoryId}")
@@ -64,6 +101,7 @@ public class MedicineController {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/medicines")
 	public Response searchMedicines(@QueryParam("query") String query) {
 		Response r = null;
 
@@ -111,6 +149,23 @@ public class MedicineController {
 					.build();
 		}
 		
+		return r;
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/presentations/{medicineId}")
+	public Response getPresentations(@PathParam("medicineId") Long medicineId) {
+		Response r = null;
+
+		try {
+			List<Presentation> presentations = medicineService.getPresentations(medicineId);
+			r = Response.status(Status.OK).entity(presentations).build();
+		} catch (Exception e) {
+			r = Response.status(Status.INTERNAL_SERVER_ERROR).entity("Se produjo un error al buscar las presentaciones del medicamento con id: " + medicineId)
+					.build();
+		}
+
 		return r;
 	}
 }

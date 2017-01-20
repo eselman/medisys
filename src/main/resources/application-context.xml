@@ -37,9 +37,9 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/medisys" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
+        <property name="url" value="jdbc:mysql://172.31.2.88:3306/medisys" />
+        <property name="username" value="user5AY" />
+        <property name="password" value="txmwO1sl7qIqU7Mf" />
     </bean>
     
     <bean id="hibernateStringEncryptor" 

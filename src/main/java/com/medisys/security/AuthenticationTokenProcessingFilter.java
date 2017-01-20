@@ -37,6 +37,4 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 
         chain.doFilter(request, response);
     }
-
-
 }

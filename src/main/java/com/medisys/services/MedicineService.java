@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.medisys.entities.Laboratory;
 import com.medisys.entities.Medicine;
+import com.medisys.entities.Presentation;
 import com.medisys.repositories.LaboratoryRepository;
 import com.medisys.repositories.MedicineRepository;
 
@@ -30,6 +31,18 @@ public class MedicineService {
 	public List<Laboratory> getLaboratories() {
 		Sort sortByName = new Sort(Sort.Direction.ASC, "name");
 		return (List<Laboratory>) laboratoryRepository.findAll(sortByName);
+	}
+	
+	/**
+	 * Save/Update a laboratory.
+	 * 
+	 * @param laboratory
+	 * @return
+	 */
+	public Laboratory saveLaboratory (Laboratory laboratory){
+		laboratory = laboratoryRepository.save(laboratory);
+		
+		return laboratory;
 	}
 	
 	/**
@@ -71,9 +84,32 @@ public class MedicineService {
 		return medicines;
 	}
 	
+	/**
+	 * Save/Update a medicine.
+	 * 
+	 * @param medicine
+	 * @return
+	 */
 	public Medicine saveMedicine (Medicine medicine){
 		medicine = medicineRepository.save(medicine);
 		
 		return medicine;
+	}
+	
+	/**
+	 * Get Presentations by medicine id.
+	 * 
+	 * @param medicineId
+	 * @return
+	 */
+	public List<Presentation> getPresentations(Long medicineId) {
+		List<Presentation> presentations = new ArrayList<>();
+		Medicine medicine = medicineRepository.findOne(medicineId);
+		
+		if (medicine.getPresentations() != null && medicine.getPresentations().size() > 0) {
+			presentations.addAll(medicine.getPresentations());
+		}
+		
+		return presentations;
 	}
 }
