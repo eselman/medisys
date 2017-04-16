@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 		@NamedQuery(name="Patient.findPatientsByLastName", query="SELECT p FROM Patient p WHERE p.lastName = :lastName")
 })
 public class Patient extends Person {
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "patient_insurance", joinColumns = { @JoinColumn(name = "patient_id") }, inverseJoinColumns = { @JoinColumn(name = "insurance_id") })
 	private Set<MedicalInsurance> insurances = new HashSet<MedicalInsurance>();
 

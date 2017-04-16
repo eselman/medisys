@@ -70,6 +70,14 @@ public class PersonService {
 	public Patient getPatientById(String idType, String idNumber) {
 		return patientRepository.findPatientById(idType.toUpperCase(), idNumber.toUpperCase());
 	}
+	
+	/**
+	 * Returns a list of patients.
+	 * @return
+	 */
+	public List<Patient> getPatients() {
+		return (List<Patient>)patientRepository.findAll();
+	}
 
 	/**
 	 * Returns a list of patients by last name.

@@ -202,7 +202,7 @@ CREATE TABLE doctor (
 
 -- tabla paciente (patient)
 CREATE TABLE patient (
-	id INT NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL,
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

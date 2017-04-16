@@ -117,6 +117,28 @@ public class PersonController {
 	// ==================================================================
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/patients")
+	public Response getPatients() {
+		Response r = null;
+
+		try {
+			List<Patient> patients = personService.getPatients();
+
+			if (patients == null) {
+				patients = new ArrayList<Patient>();
+			}
+
+			r = Response.status(Status.OK).entity(patients).build();
+		} catch (Exception e) {
+			r = Response.status(Status.INTERNAL_SERVER_ERROR)
+					.entity("Se produjo un error al buscar el listado de pacientes").build();
+		}
+
+		return r;
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/patient/{idType}/{idNumber}")
 	public Response getPatientById(@PathParam("idType") String idType, @PathParam("idNumber") String idNumber) {
 		Response r = null;

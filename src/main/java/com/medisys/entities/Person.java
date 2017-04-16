@@ -15,6 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.medisys.converter.LocalDateTimeDeserializer;
+import com.medisys.converter.LocalDateTimeSerializer;
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @Table(name = "person")
@@ -39,6 +45,8 @@ public abstract class Person {
 	private String identificationNumber;
 
 	@Column(name = "birth_date")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime birthDate;
 
 	@OneToOne(cascade = CascadeType.ALL)
